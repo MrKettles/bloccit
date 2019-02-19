@@ -11,6 +11,20 @@ describe('routes : static', () => {
         done();
       });
     });
+
+    describe('GET /marco', ()=> {
+      //I'm nesting this to appease the DRY principle, so that I 
+      //don't have to test the returned status code twice, but I 
+      //don't know if nesting is the best way to accomplish this...
+      it('should contain "polo" in the body', (done) => {
+        request.get(base + 'marco', (err, res, body) => {
+          expect(body).toContain('polo');
+          done();
+        });
+      });
+    });
+
   });
+
 
 });
