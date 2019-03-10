@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+  <body class='bg-dark'>
+    <main>
+      <form class='container bg-light' action="/topics/<%= topicId %>/posts/<%= postId %>/updateFlair" method="post">
+        <h3>Add Flair</h3>
+        <div class="form-group">
+          <label for="title">Flair Name</label>
+          <input type="text" class="form-control" name="name" aria-describedby="titleHelp" placeholder="Enter Name">
+        </div>
+        <div class="form-group">
+          <label for="color">Color (Optional)</label>
+          <input type='text' class="form-control" name="color" aria-describedby='titleHelp' placeholder="Enter Color">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type='button' class='btn bg-warning' onClick='window.history.back()'>Cancel</button>
+      </form>
+    </main>
+
+    <% include ../static/partials/baseScripts.ejs %>
+
+  </body>
+</html>

@@ -1,4 +1,5 @@
 const postQueries = require('../db/queries.posts.js');
+const flairQueries = require('../db/queries.flair.js');
 
 module.exports = {
 
@@ -26,7 +27,13 @@ module.exports = {
 			if(err || post == null){
 				res.redirect(404, '/');
 			} else {
-				res.render('posts/show', {post});
+				flairQueries.getFlair(post.flairId, (err, flair) => {
+					if(err){
+						res.redirect(500, `posts/${req.params.id}`);
+					} else {
+						res.render('posts/show', {post, flair});
+					}
+				})
 			}
 		})
 	},

@@ -1,0 +1,21 @@
+      <div>
+        <%if (flair){ %>
+          <div class='btn' style='background: <%= flair.color %>'>
+            <h5><%= flair.name %></h5>
+          </div>
+        <% } %>
+        <% if(post.flairId){ %>
+              
+        <a class='btn btn-warning' href='/topics/<%= post.topicId %>/posts/<%= post.id %>/<%= post.flairId %>/editFlair'>Edit Flair</a>
+        <form action='/topics/<%= post.topicId %>/posts/<%= post.id %>/deleteFlair' method='post'>
+          <button class='btn btn-danger'>Delete Flair</button>
+        </form>
+
+        <% } else{ %>
+
+        <form action='/topics/<%= post.topicId %>/posts/<%= post.id %>/addFlair'>
+          <button class='btn'>Add Flair</button>
+        </form>
+
+        <% } %>
+      </div>
