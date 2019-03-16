@@ -104,14 +104,24 @@ describe('routes : flair', () => {
 	});
 
 	describe('POST topics/:topic/posts/:id/deleteFlair', () => {
-		it('should dissociate Flair from Post', (done) => {
-			Post.findById(this.post.id).then(post => {
-				expect(post.flairId).toBe(1);
-
-				request.post(`${base}/${this.topic.id}/posts/${this.post.id}/deleteFlair`, (err, res, body) => {
-					Post.findById(this.post.id).then(updatedPost => {
-						expect(updatedPost.flairId).toBe(null);
-						done();
+		it('should delete a given Flair from the database and remove its association with posts', (done) => {
+			Post.create({
+				title: 'Hooked on Crocheting',
+				body: 'I seem to have become addicted to needlework',
+				topicId: this.topic.id,
+				flairId: this.flair.id
+			})
+			.then(newPost => {
+				expect(newPost.flairId).toBe(this.post.flairId);
+				request.post(`${base}/${this.topic.id}/posts/${this.post.id}/${this.post.flairId}/deleteFlair`, (err, res, body) => {
+					Flair.findById(this.post.flairId)
+					.then(flair => {
+						expect(flair).toBeNull();
+						Post.findAll({where: {flairId: this.flair.id}})
+						.then(posts => {
+							expect(posts.length).toBe(0);
+							done();
+						})
 					})
 					.catch(err => {
 						console.log(err);

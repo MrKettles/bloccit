@@ -44,17 +44,17 @@ module.exports = {
 		})
 	},
 
-	removeFlair(postId, callback){
-		return Post.findById(postId)
-		.then(post => {
-			post.update({flairId: null})
-			.then(()=>{
-				callback(null, post);
+	deleteFlair(postId, flairId, callback){
+		return Post.update({flairId: null}, {where: {flairId}, returning: true})
+		.then(postUpdateCount => {
+			Flair.destroy({where: {id: flairId}})
+			.then(deleteCount => {
+				callback(null, deleteCount);
 			})
 			.catch(err => {
 				callback(err);
 			})
 		})
-	}
+	}	
 
 }

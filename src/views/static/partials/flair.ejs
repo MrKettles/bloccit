@@ -7,7 +7,7 @@
         <% if(post.flairId){ %>
               
         <a class='btn btn-warning' href='/topics/<%= post.topicId %>/posts/<%= post.id %>/<%= post.flairId %>/editFlair'>Edit Flair</a>
-        <form action='/topics/<%= post.topicId %>/posts/<%= post.id %>/deleteFlair' method='post'>
+        <form action='/topics/<%= post.topicId %>/posts/<%= post.id %>/<%= post.flairId %>/deleteFlair' method='post'>
           <button class='btn btn-danger'>Delete Flair</button>
         </form>
 
